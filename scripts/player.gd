@@ -16,6 +16,8 @@ export(float) var fall = 30;
 export(float) var fall_max = 1000;
 export(float) var coyote_time = 0.1;
 
+export(bool) var power_punch = true;
+export(bool) var power_shoot = false;
 export(bool) var power_float = false;
 export(bool) var power_jump = false;
 
@@ -26,8 +28,13 @@ var double_jump = false;
 var was_on_floor = false;
 var coyote_timer = 0;
 var tile_standing = null;
+
 var attacking = false;
-var attack_timer = 0;
+var attacking_timer = 0;
+
+var shooting = false;
+var shooting_timer = 0;
+
 var take_damage = null;
 var taking_damage = false;
 
@@ -36,6 +43,7 @@ func _ready():
 	pass;
 
 func _physics_process(delta):
+	if(Global.player_locked): return
 	if(!is_dead):
 		if(!taking_damage):
 			check_raycasts();
@@ -48,6 +56,7 @@ func _physics_process(delta):
 		die();
 	add_gravity(delta);
 	apply_attack(delta);
+	apply_shoot(delta);
 	apply_movement(delta);
 
 func check_input(delta):
@@ -82,8 +91,12 @@ func check_input(delta):
 	if( Input.is_action_pressed("down") && is_on_floor() && tile_standing==1 ):
 		position.y += 2
 	
-	if( Input.is_action_just_pressed("attack") ):
+	if(Input.is_action_just_pressed("attack") && power_punch):
 		attacking = true;
+		
+	if(Input.is_action_just_pressed("shoot") && power_shoot):
+		if(shooting_timer==0):
+			shooting = true;
 
 func add_gravity(delta):
 	if(power_float && !is_jumping && Input.is_action_pressed("float")):
@@ -129,9 +142,9 @@ func check_coyote(delta):
 
 func apply_attack(delta):
 	if(attacking):
-		attack_timer += delta;
-		if(attack_timer >= 0.2):
-			attack_timer = 0;
+		attacking_timer += delta;
+		if(attacking_timer >= 0.2):
+			attacking_timer = 0;
 			attacking = false;
 			SWORD.visible = false;
 			SWORD.find_node("CollisionShape2D").disabled = true;
@@ -139,6 +152,16 @@ func apply_attack(delta):
 			SWORD.visible = true;
 			SPRITE.play("attack");
 			SWORD.find_node("CollisionShape2D").disabled = false;
+
+func apply_shoot(delta):
+	if(shooting):
+		shooting = false;
+		shooting_timer += delta;
+		print("shoot");
+	if(shooting_timer>0):
+		shooting_timer += delta;
+		if(shooting_timer >= 0.5):
+			shooting_timer = 0;
 
 func check_raycasts():
 	#check bottom

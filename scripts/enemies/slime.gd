@@ -5,16 +5,18 @@ onready var HEALTH = $health;
 onready var RAYCAST_FLOOR = $ray_floor;
 onready var COLLIDER = $Area2D/CollisionShape2D;
 
+var COIN = preload("res://objects/coin.tscn");
+
 export(bool) var active = false;
 #enum Types{Pink,Blue};
 enum Dirs{Left=-1,Right=1};
 #export(Types) var type = 0;
 export(Dirs) var dir = -1;
-export(float) var health = 5;
+export(float) var health = 1;
 export(float) var speed = 200;
 export(float) var fall = 30;
 export(float) var fall_max = 1000;
-export(float) var run_timer = 2;
+export(float) var run_timer = 100;
 export(bool) var knockback = true;
 
 var velocity = Vector2(0,0);
@@ -23,12 +25,14 @@ var take_damage = null;
 var air_time = 0;
 var air_time_max = 1;
 
+var rng = RandomNumberGenerator.new()
+
 func _ready():
 	update_text();
 	update_dir();
-	update_dir();
 
 func _physics_process(delta):
+	if(Global.player_locked): return
 	if(!active):
 		return;
 
@@ -95,6 +99,32 @@ func deactivate():
 	active = false;
 
 func die():
+	#spawn money
+	rng.randomize();
+	var num = rng.randf_range(0,100);
+	if(num>=95): #5%
+		num = 5;
+	elif(num>=85): #10%
+		num = 4;
+	elif(num>=70): #15%
+		num = 3;
+	elif(num>=45): #25%
+		num = 2;
+	elif(num>=20): #25%
+		num = 1;
+	else: #20%
+		num = 5;
+	
+	print(global_position);
+	
+	var  i =0;
+	while(i < num):
+		print(str(i) + " - " + str(num));
+		var instance = COIN.instance();
+		$".".get_parent().call_deferred("add_child", instance);
+		instance.position = position;
+		i += 1;
+	
 	queue_free();
 
 func _on_Area2D_body_entered(body):

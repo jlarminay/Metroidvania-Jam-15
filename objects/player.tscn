@@ -29,6 +29,16 @@ animations = [ {
 "name": "fall_slow",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "attack",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "jump",
@@ -37,16 +47,6 @@ animations = [ {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "crouch",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "attack",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "dead",
 "speed": 5.0
 } ]
 
@@ -57,6 +57,7 @@ extents = Vector2( 29.3389, 24.9594 )
 extents = Vector2( 32, 8 )
 
 [node name="player" type="KinematicBody2D"]
+collision_mask = 20
 script = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -75,6 +76,7 @@ cast_to = Vector2( 0, 40 )
 [node name="sword" type="Area2D" parent="."]
 visible = false
 position = Vector2( 0, 16 )
+collision_mask = 2
 __meta__ = {
 "_edit_group_": true
 }

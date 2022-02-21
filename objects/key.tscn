@@ -7,6 +7,8 @@
 extents = Vector2( 32, 16 )
 
 [node name="key" type="Area2D"]
+collision_layer = 16
+collision_mask = 5
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -14,4 +16,5 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+
 [connection signal="body_entered" from="." to="." method="_on_key_body_entered"]
