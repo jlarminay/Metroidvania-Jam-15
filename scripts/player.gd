@@ -38,12 +38,19 @@ var shooting_timer = 0;
 var take_damage = null;
 var taking_damage = false;
 
+export(bool) var invi_active = false;
+var invi_cur_timer = 0;
+var invi_max_timer = 3;
+var invi_flash_cur = 0;
+var invi_flash_max = 0.33;
+var invi_flash_strong = false;
+
 func _ready():
 	#print(CAMERA.get_camera_position());
 	pass;
 
 func _physics_process(delta):
-	if(Global.player_locked): return
+	if(Global.paused): return
 	if(!is_dead):
 		if(!taking_damage):
 			check_raycasts();
@@ -58,6 +65,7 @@ func _physics_process(delta):
 	apply_attack(delta);
 	apply_shoot(delta);
 	apply_movement(delta);
+	apply_flash(delta);
 
 func check_input(delta):
 	
@@ -180,15 +188,42 @@ func update_camera(t,r,b,l,zoom):
 	CAMERA.limit_left = l;
 	CAMERA.set_zoom( Vector2(zoom,zoom) );
 
+func apply_flash(delta):
+	if(invi_active):
+		invi_cur_timer += delta;
+		invi_flash_cur += delta;
+		#turn off
+		if(invi_cur_timer >= invi_max_timer):
+			invi_cur_timer = 0;
+			invi_flash_cur = 0;
+			invi_active = 0;
+			modulate.a = 1;
+		
+		#flash
+		if(invi_flash_cur >= invi_flash_max):
+			invi_flash_cur = 0;
+			if(invi_flash_strong):
+				modulate.a = 0.6;
+			else:
+				modulate.a = 0.1;
+			invi_flash_strong = !invi_flash_strong;
+	else:
+		modulate.a = 1;
+
 func take_damage(origin, damage):
+	if(invi_active): return;
 	health -= damage;
+	invi_active = true;
 	taking_damage = true;
-	print(health);
 	var diff = global_position - origin;
 	if(diff.x>0):
-		take_damage = Vector2(200, -500);
+		take_damage = Vector2(1500, -400);
 	else:
-		take_damage = Vector2(-200, -500);
+		take_damage = Vector2(-1500, -400);
+	
+	if(health<=0):
+		invi_active = false;
+		die();
 
 func die():
 	is_dead = true;

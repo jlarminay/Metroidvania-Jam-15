@@ -2,7 +2,7 @@ extends Node
 
 const UNIT_SIZE = 64;
 
-var player_locked = false;
+var paused = false;
 
 var coins = 0;
 var save_point = null;

@@ -29,10 +29,9 @@ var rng = RandomNumberGenerator.new()
 
 func _ready():
 	update_text();
-	update_dir();
 
 func _physics_process(delta):
-	if(Global.player_locked): return
+	if(Global.paused): return
 	if(!active):
 		return;
 
@@ -113,13 +112,10 @@ func die():
 	elif(num>=20): #25%
 		num = 1;
 	else: #20%
-		num = 5;
-	
-	print(global_position);
+		num = 0;
 	
 	var  i =0;
 	while(i < num):
-		print(str(i) + " - " + str(num));
 		var instance = COIN.instance();
 		$".".get_parent().call_deferred("add_child", instance);
 		instance.position = position;

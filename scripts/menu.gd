@@ -17,7 +17,7 @@ func _ready():
 
 func _process(delta):
 	if(Input.is_action_just_pressed("select")):
-		Global.player_locked = !Global.player_locked;
+		Global.paused = !Global.paused;
 		visible = !visible;
 		panel_map.visible = visible;
 		page = 1;
