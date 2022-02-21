@@ -1,0 +1,117 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://addons/jamcountdown/countdown.gd" type="Script" id=1]
+[ext_resource path="res://addons/jamcountdown/Roboto-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://addons/jamcountdown/Roboto-Light.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color( 0.435294, 0.435294, 0.435294, 1 )
+border_color = Color( 1, 1, 1, 0.882353 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color( 0, 0, 0, 0.34902 )
+shadow_size = 3
+shadow_offset = Vector2( 0, 2 )
+
+[sub_resource type="Theme" id=2]
+PanelContainer/styles/panel = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 15
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="Theme" id=6]
+Button/styles/focus = SubResource( 8 )
+Button/styles/hover = SubResource( 9 )
+Button/styles/normal = SubResource( 10 )
+Button/styles/pressed = SubResource( 11 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 15
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 2 )
+
+[node name="Countdown" type="PanelContainer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -198.0
+margin_bottom = 24.0
+grow_horizontal = 0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+theme = SubResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+jam_title = "Metroidvania Month 15"
+jam_link = "https://itch.io/jam/metroidvania-month-15"
+month = 3
+day = 15
+hour = 5
+minute = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 5.0
+margin_right = 193.0
+margin_bottom = 24.0
+grow_horizontal = 0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel_old" type="Label" parent="HBoxContainer"]
+visible = false
+margin_right = 68.0
+margin_bottom = 24.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "GameJam"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Button" parent="HBoxContainer"]
+margin_left = 52.0
+margin_right = 132.0
+margin_bottom = 24.0
+theme = SubResource( 6 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Mini Jam 99"
+flat = true
+align = 0
+
+[node name="CountdownLabel" type="Label" parent="HBoxContainer"]
+margin_left = 136.0
+margin_right = 136.0
+margin_bottom = 24.0
+grow_horizontal = 0
+size_flags_horizontal = 5
+size_flags_vertical = 3
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="HBoxContainer/TitleLabel" to="." method="_on_TitleLabel_pressed"]
