@@ -1,0 +1,160 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/menus/debug.gd" type="Script" id=1]
+
+[node name="debug" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="player_panel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 8.0
+margin_top = 144.0
+margin_right = 272.0
+margin_bottom = 280.0
+rect_pivot_offset = Vector2( 80, 80 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="double" type="Label" parent="player_panel"]
+margin_left = 40.0
+margin_top = 80.0
+margin_right = 216.0
+margin_bottom = 104.0
+rect_pivot_offset = Vector2( 8, 16 )
+text = "double:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="double_toggle" type="Button" parent="player_panel"]
+margin_left = 8.0
+margin_top = 80.0
+margin_right = 32.0
+margin_bottom = 104.0
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="float" type="Label" parent="player_panel"]
+margin_left = 40.0
+margin_top = 56.0
+margin_right = 216.0
+margin_bottom = 80.0
+rect_pivot_offset = Vector2( 8, 16 )
+text = "float:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="float_toggle" type="Button" parent="player_panel"]
+margin_left = 8.0
+margin_top = 56.0
+margin_right = 32.0
+margin_bottom = 80.0
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="data" type="Label" parent="player_panel"]
+margin_left = 8.0
+margin_top = 104.0
+margin_right = 184.0
+margin_bottom = 128.0
+text = "misc data"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="punch" type="Label" parent="player_panel"]
+margin_left = 40.0
+margin_top = 8.0
+margin_right = 216.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 8, 16 )
+text = "punch:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="punch_toggle" type="Button" parent="player_panel"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 32.0
+margin_bottom = 32.0
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shoot" type="Label" parent="player_panel"]
+margin_left = 40.0
+margin_top = 32.0
+margin_right = 216.0
+margin_bottom = 56.0
+rect_pivot_offset = Vector2( 8, 16 )
+text = "shoot:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shoot_toggle" type="Button" parent="player_panel"]
+margin_left = 8.0
+margin_top = 32.0
+margin_right = 32.0
+margin_bottom = 56.0
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="info_panel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 320.0
+margin_bottom = 136.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="yellow_key" type="Label" parent="info_panel"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 152.0
+margin_bottom = 32.0
+text = "yellow key:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="INFO" type="Label" parent="info_panel"]
+margin_left = 8.0
+margin_top = 96.0
+margin_right = 256.0
+margin_bottom = 120.0
+text = "* Press 'Jump' to respawn after death"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="coins" type="Label" parent="info_panel"]
+margin_left = 160.0
+margin_top = 8.0
+margin_right = 304.0
+margin_bottom = 32.0
+text = "coins:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

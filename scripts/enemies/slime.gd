@@ -12,7 +12,7 @@ export(bool) var active = false;
 enum Dirs{Left=-1,Right=1};
 #export(Types) var type = 0;
 export(Dirs) var dir = -1;
-export(float) var health = 1;
+export(float) var health = 5;
 export(float) var speed = 200;
 export(float) var fall = 30;
 export(float) var fall_max = 1000;

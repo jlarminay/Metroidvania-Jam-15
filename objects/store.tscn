@@ -1,0 +1,48 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://sprites/store/store_1.png" type="Texture" id=1]
+[ext_resource path="res://sprites/store/store_6.png" type="Texture" id=2]
+[ext_resource path="res://sprites/store/store_3.png" type="Texture" id=3]
+[ext_resource path="res://sprites/store/store_4.png" type="Texture" id=4]
+[ext_resource path="res://sprites/store/store_2.png" type="Texture" id=5]
+[ext_resource path="res://sprites/store/store_7.png" type="Texture" id=6]
+[ext_resource path="res://sprites/store/store_5.png" type="Texture" id=7]
+[ext_resource path="res://scripts/store.gd" type="Script" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 96, 96 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="store" type="Area2D"]
+collision_layer = 64
+script = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 2 )
+frame = 2
+playing = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = -128.0
+margin_top = -104.0
+margin_right = 23.0
+margin_bottom = -90.0
+rect_scale = Vector2( 1.7, 1.7 )
+text = "Press 'up' to open store"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="body_entered" from="." to="." method="_on_store_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_store_body_exited"]

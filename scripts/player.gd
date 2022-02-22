@@ -5,6 +5,8 @@ onready var CAMERA = $camera;
 onready var RAYCAST_BOTTOM = $ray_bottom;
 onready var SWORD = $sword;
 
+onready var BULLET = preload("res://objects/bullet.tscn");
+
 var velocity = Vector2(0,0);
 
 export(int) var health = 3;
@@ -31,9 +33,13 @@ var tile_standing = null;
 
 var attacking = false;
 var attacking_timer = 0;
+var attacking_damage = 2;
 
 var shooting = false;
 var shooting_timer = 0;
+var shooting_bullet_speed = 800;
+var shooting_buller_lieftime = 0.4;
+var shooting_bullet_damage = 1;
 
 var take_damage = null;
 var taking_damage = false;
@@ -165,7 +171,16 @@ func apply_shoot(delta):
 	if(shooting):
 		shooting = false;
 		shooting_timer += delta;
-		print("shoot");
+		var instance = BULLET.instance();
+		$".".get_parent().call_deferred("add_child", instance);
+		instance.lifetime = shooting_buller_lieftime;
+		instance.damage = shooting_bullet_damage;
+		instance.speed = shooting_bullet_speed;
+		if(SPRITE.flip_h):
+			instance.dir = -1;
+		else:
+			instance.dir = 1;
+		instance.position = position;
 	if(shooting_timer>0):
 		shooting_timer += delta;
 		if(shooting_timer >= 0.5):
@@ -211,7 +226,7 @@ func apply_flash(delta):
 		modulate.a = 1;
 
 func take_damage(origin, damage):
-	if(invi_active): return;
+	if(invi_active || is_dead): return;
 	health -= damage;
 	invi_active = true;
 	taking_damage = true;
@@ -235,4 +250,4 @@ func die():
 
 func _on_sword_body_entered(body):
 	if( body.has_method("damage") ):
-		body.damage(global_position, 1);
+		body.damage(global_position, attacking_damage);

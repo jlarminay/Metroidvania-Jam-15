@@ -13,7 +13,7 @@ func _on_room_body_entered(body):
 		var r = p[0] + w;
 		var l = p[0] - w;
 		
-		Global.current_room = $".".get_parent();
+		Global.set_current_room($".".get_parent().name);
 		body.update_camera(t,r,b,l,zoom);
 		
 		#find all enemies
